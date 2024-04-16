@@ -1,6 +1,7 @@
 // @ts-nocheck
-
 import { Component, OnInit } from '@angular/core';
+import { error } from 'console';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -30,12 +31,12 @@ export class RegisterComponent implements OnInit {
 cadastrar() {
     // Checa se alguma role foi checada.
     if (this.checkIfAnyRoleIsChecked() === false) {
-      alert('Marque alguma role!');
-      // Swal.fire(
-        //     'Algo de errado...',
-        //     'Marque alguma role!',
-        //     'error'
-        // )
+      // alert('Marque alguma role!');
+      Swal.fire(
+            'Algo de errado...',
+            'Marque alguma role!',
+            'error'
+        )
         return;
     }
 
@@ -58,26 +59,33 @@ cadastrar() {
         })
         .then(response => response.json())
         .then(response => {
-          alert('Cadastrado com sucesso!');
+          // alert('Cadastrado com sucesso!');
           localStorage.setItem("userName", response.fullName);
           localStorage.setItem("role", response.role === "dev" ? "Desenvolvedor" : "Cliente");
           localStorage.setItem("idClient", response.id);
 
           window.location.href = "list.html";  
-          // Swal.fire({
-            //     title: 'Bom Trabalho!',
-            //     text: "Cadastrado com sucesso!",
-            //     icon: 'success',
-            //     confirmButtonText: 'Ok!'
-            // }).then((result) => {
-            //     if (result.isConfirmed) {
-            //         localStorage.setItem("userName", response.fullName);
-            //         localStorage.setItem("role", response.role === "dev" ? "Desenvolvedor" : "Cliente");
-            //         localStorage.setItem("idClient", response.id);
+          Swal.fire({
+                title: 'Bom Trabalho!',
+                text: "Cadastrado com sucesso!",
+                icon: 'success',
+                confirmButtonText: 'Ok!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    localStorage.setItem("userName", response.fullName);
+                    localStorage.setItem("role", response.role === "dev" ? "Desenvolvedor" : "Cliente");
+                    localStorage.setItem("idClient", response.id);
 
-            //         window.location.href = "list.html";
-            //     }
-            // })
+                    window.location.href = "list.html";
+                }
+            })
+        }).catch(error => {
+          Swal.fire(
+            'Algo de errado...',
+            ''+error+'',
+            'error'
+          )
+          return;
         })
 }
 
