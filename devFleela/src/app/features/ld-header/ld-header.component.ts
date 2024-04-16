@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IUser } from './interfaces/IUser';
 
 @Component({
   selector: 'ld-header',
@@ -7,26 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LdHeaderComponent implements OnInit {
 
-  constructor() { }
+  user: IUser = {};
 
   ngOnInit(): void {
     this.buildHeader();
-    // this.checkIfUserIsLogged();
   }
   buildHeader() {
     if(this.checkIfUserIsLogged()){
-      // insere nome de usuario no header e role tbm.
-    } else {
-      // ...
+      this.user.name = localStorage.getItem("userName") || '';
+      this.user.role = localStorage.getItem("role") || '';
     }
   }
-  checkIfUserIsLogged() {
-    return localStorage.getItem("userName") && localStorage.getItem("role");
-    // if(localStorage.getItem("userName") && localStorage.getItem("role")){
-    //   return true;
-    // }else{
-    //   return false;
-    // }
+  checkIfUserIsLogged(): boolean {
+    return localStorage.getItem("userName") !== null && localStorage.getItem("role")  !== null;
   }
 
 }
