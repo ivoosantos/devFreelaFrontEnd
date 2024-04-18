@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ListService } from './services/list.service';
 import { IListItem } from './interfaces/IListItem';
 import { NavigationBehaviorOptions, Router } from '@angular/router';
+import { IProject } from 'src/app/shared/interfaces/IProject';
 
 @Component({
   selector: 'app-list',
@@ -12,7 +13,7 @@ export class ListComponent implements OnInit {
 
   constructor(private listService: ListService, private router: Router) { }
 
-  list: IListItem[] = [];
+  list: IProject[] = [];
   tableIsLoaded: boolean = false;
 
   ngOnInit(): void {
@@ -20,7 +21,7 @@ export class ListComponent implements OnInit {
 
   getProducts() {
     this.listService.getProjects().subscribe(
-      (response: IListItem[]) => {
+      (response: IProject[]) => {
         this.list = response;
         this.buildTable();
         this.tableIsLoaded = true;
@@ -30,13 +31,13 @@ export class ListComponent implements OnInit {
 
   buildTable() {
     const idClient = localStorage.getItem('idClient');
-    this.list = this.list.filter((listItem: IListItem) => listItem.idClient === idClient);
+    this.list = this.list.filter((listItem: IProject) => listItem.idClient === idClient);
   }
 
   deleteProject(id: string = '') {
     this.listService.deleteProject(id).subscribe(
       (response) => {
-        this.list = this.list.filter((project: IListItem) => project.id != id);
+        this.list = this.list.filter((project: IProject) => project.id != id);
         this.buildTable();
       }
     )
