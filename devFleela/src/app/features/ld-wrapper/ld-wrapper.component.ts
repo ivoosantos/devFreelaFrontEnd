@@ -1,15 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'ld-wrapper',
   templateUrl: './ld-wrapper.component.html',
   styleUrls: ['./ld-wrapper.component.scss']
 })
-export class LdWrapperComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class LdWrapperComponent {
+  @Input() type: 'one-col' | 'two-col' = 'two-col';
 }
