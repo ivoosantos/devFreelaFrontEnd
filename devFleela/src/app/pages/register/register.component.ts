@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { msg } from 'src/app/shared/utils/msg';
 import { RegisterService } from './services/register.service';
+import { Helpers } from 'src/app/shared/utils/helpers';
 
 @Component({
   selector: 'app-register',
@@ -15,6 +16,8 @@ export class RegisterComponent implements OnInit {
   constructor(private fb: FormBuilder, private resgiterService: RegisterService) { }
 
   msg = msg;
+  helpers = Helpers;
+
   registerForm: FormGroup = this.fb.group({
     role: ['', [Validators.required]],
     fullName: ['', [Validators.required]],
@@ -109,13 +112,6 @@ cadastrar() {
     //       )
     //       return;
     //     })
-}
-
-isInvalid(inputName: string, validatorName: string){
-  const formControl: any = this.registerForm.get(inputName);
-  if(formControl.errors !== null){
-    return formControl.errors[validatorName] && formControl.touched;
-  }
 }
 
 }

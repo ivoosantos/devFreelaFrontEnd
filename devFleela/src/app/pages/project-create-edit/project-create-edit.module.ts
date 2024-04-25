@@ -7,8 +7,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { LdButtonModule } from 'src/app/shared/components/ld-button/ld-button.module';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
 
-
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
 
 @NgModule({
   declarations: [
@@ -21,7 +24,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     LdButtonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    NgxMaskModule.forRoot()
   ]
 })
 export class ProjectCreateEditModule { }
